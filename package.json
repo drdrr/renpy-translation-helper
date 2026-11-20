@@ -1,0 +1,247 @@
+{
+  "name": "renpy-translation-helper",
+  "displayName": "RenPy Translation Helper",
+  "description": "Quickly select and wrap strings with _() for Ren'Py translation. Place your cursor inside a quoted string and use a keybinding to automatically wrap it for translation.",
+  "version": "0.0.1",
+  "license": "GPL-3.0-only",
+  "publisher": "drdrr",
+  "engines": {
+    "vscode": "^1.99.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "renpy",
+    "translation",
+    "visual novel",
+    "game development"
+  ],
+  "activationEvents": [
+    "onLanguage:renpy",
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/drdrr/renpy-translation-helper"
+  },
+  "bugs": {
+    "url": "https://github.com/drdrr/renpy-translation-helper/issues"
+  },
+  "homepage": "https://github.com/drdrr/renpy-translation-helper#readme",
+  "icon": "images/icon.png",
+  "contributes": {
+    "commands": [
+      {
+        "command": "renpy-translation-helper.selectString",
+        "title": "RenPy: Select String At Cursor"
+      },
+      {
+        "command": "renpy-translation-helper.wrapWithTranslation",
+        "title": "RenPy: Wrap String With Translation Markers"
+      },
+      {
+        "command": "renpy-translation-helper.batchWrapStrings",
+        "title": "RenPy: Batch Wrap All Strings In Selection"
+      },
+      {
+        "command": "renpy-translation-helper.previewChanges",
+        "title": "RenPy: Preview Translation Changes"
+      },
+      {
+        "command": "renpy-translation-helper.acceptPreviewChanges",
+        "title": "Accept Translation Changes",
+        "icon": "$(check)"
+      },
+      {
+        "command": "renpy-translation-helper.rejectPreviewChanges",
+        "title": "Reject Translation Changes",
+        "icon": "$(x)"
+      },
+      {
+        "command": "renpy-translation-helper.openKeybindings",
+        "title": "RenPy: Configure Translation Helper Keybindings"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "renpy-translation-helper.selectString",
+          "group": "renpy@1",
+          "when": "renpy-translation-helper.isRenpyFile"
+        },
+        {
+          "command": "renpy-translation-helper.wrapWithTranslation",
+          "group": "renpy@2",
+          "when": "renpy-translation-helper.isRenpyFile"
+        },
+        {
+          "command": "renpy-translation-helper.batchWrapStrings",
+          "group": "renpy@3",
+          "when": "renpy-translation-helper.isRenpyFile && editorHasSelection"
+        },
+        {
+          "command": "renpy-translation-helper.previewChanges",
+          "group": "renpy@4",
+          "when": "renpy-translation-helper.isRenpyFile && editorHasSelection"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "renpy-translation-helper.acceptPreviewChanges",
+          "group": "navigation",
+          "when": "renpy-translation-helper.showingPreview"
+        },
+        {
+          "command": "renpy-translation-helper.rejectPreviewChanges",
+          "group": "navigation",
+          "when": "renpy-translation-helper.showingPreview"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "renpy-translation-helper.selectString",
+          "when": "renpy-translation-helper.isRenpyFile"
+        },
+        {
+          "command": "renpy-translation-helper.wrapWithTranslation",
+          "when": "renpy-translation-helper.isRenpyFile"
+        },
+        {
+          "command": "renpy-translation-helper.batchWrapStrings",
+          "when": "renpy-translation-helper.isRenpyFile"
+        },
+        {
+          "command": "renpy-translation-helper.previewChanges",
+          "when": "renpy-translation-helper.isRenpyFile && editorHasSelection"
+        },
+        {
+          "command": "renpy-translation-helper.acceptPreviewChanges",
+          "when": "renpy-translation-helper.showingPreview"
+        },
+        {
+          "command": "renpy-translation-helper.rejectPreviewChanges",
+          "when": "renpy-translation-helper.showingPreview"
+        },
+        {
+          "command": "renpy-translation-helper.openKeybindings",
+          "when": "true"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "renpy-translation-helper.selectString",
+        "key": "ctrl+alt+r s",
+        "when": "editorTextFocus && renpy-translation-helper.isRenpyFile"
+      },
+      {
+        "command": "renpy-translation-helper.wrapWithTranslation",
+        "key": "ctrl+alt+r t",
+        "when": "editorTextFocus && renpy-translation-helper.isRenpyFile"
+      },
+      {
+        "command": "renpy-translation-helper.batchWrapStrings",
+        "key": "ctrl+alt+r b",
+        "when": "editorTextFocus && renpy-translation-helper.isRenpyFile && editorHasSelection"
+      },
+      {
+        "command": "renpy-translation-helper.previewChanges",
+        "key": "ctrl+alt+r p",
+        "when": "editorTextFocus && renpy-translation-helper.isRenpyFile && editorHasSelection"
+      },
+      {
+        "command": "renpy-translation-helper.acceptPreviewChanges",
+        "key": "ctrl+alt+r enter",
+        "when": "renpy-translation-helper.showingPreview"
+      },
+      {
+        "command": "renpy-translation-helper.rejectPreviewChanges",
+        "key": "ctrl+alt+r escape",
+        "when": "renpy-translation-helper.showingPreview"
+      },
+      {
+        "command": "renpy-translation-helper.rejectPreviewChanges",
+        "key": "escape",
+        "when": "renpy-translation-helper.showingPreview && isInDiffEditor && editorTextFocus && !findWidgetVisible && !suggestWidgetVisible && !parameterHintsVisible && !renameInputVisible && !inSnippetMode && !inlineSuggestionVisible && !editorHasMultipleSelections && !notificationToastsVisible"
+      }
+    ],
+    "configuration": {
+      "title": "RenPy Translation Helper",
+      "properties": {
+        "renpyTranslationHelper.languageIds": {
+          "type": "array",
+          "default": [
+            "renpy"
+          ],
+          "description": "Language IDs that should be recognized as RenPy files. Default to renpy."
+        },
+        "renpyTranslationHelper.fileExtensions": {
+          "type": "array",
+          "default": [
+            ".rpy",
+            ".rpym"
+          ],
+          "description": "File extensions that should be recognized as RenPy files. Default to .rpy and .rpym."
+        },
+        "renpyTranslationHelper.translationFunction": {
+          "type": "string",
+          "default": "_",
+          "description": "The function name used for translation wrapping. Default to _."
+        },
+        "renpyTranslationHelper.batch.skipDialogue": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Batch Wrap and Preview leave say-statement dialogue (`e \"Hello\"`, `\"Narration\"`) and menu choices (`\"Go left\":`) unwrapped. Ren'Py translates these automatically, and wrapping them makes the statement invalid. Strings in comments are always left alone."
+        },
+        "renpyTranslationHelper.batch.skipAssetPaths": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Batch Wrap and Preview leave strings ending in a file extension (`.png`, `.jpg`, `.webp`, `.ogg`, `.mp3`, `.wav`, `.webm`, `.ttf`, `.otf`, `.rpy`, `.json`, ...) unwrapped."
+        },
+        "renpyTranslationHelper.batch.skipPatterns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "^#[0-9a-fA-F]{3,8}$"
+          ],
+          "markdownDescription": "Regular expressions (JavaScript syntax). Batch Wrap and Preview leave any string whose contents (without quotes) match one of them unwrapped. The default skips colour codes such as `\"#ff8800\"`."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "npm run check-types && npm run lint && node esbuild.js",
+    "watch": "npm-run-all -p watch:*",
+    "watch:esbuild": "node esbuild.js --watch",
+    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "package": "npm run check-types && npm run lint && node esbuild.js --production",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint src",
+    "test": "vscode-test",
+    "vsix": "vsce package --no-dependencies",
+    "test:unit": "npm run compile-tests && mocha --ui tdd \"out/test/unit/**/*.test.js\""
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "~20.19.0",
+    "@types/vscode": "~1.99.0",
+    "@typescript-eslint/eslint-plugin": "^8.73.0",
+    "@typescript-eslint/parser": "^8.73.0",
+    "@vscode/test-cli": "^0.0.15",
+    "@vscode/test-electron": "^2.5.2",
+    "@vscode/vsce": "^4.1.1",
+    "esbuild": "^0.25.12",
+    "eslint": "^9.39.5",
+    "mocha": "^11.8.0",
+    "npm-run-all2": "^9.0.4",
+    "typescript": "^5.9.3"
+  }
+}

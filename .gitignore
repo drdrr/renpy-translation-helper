@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Build and test output
+dist/
+out/
+.vscode-test/
+*.vsix
+
+# VS Code: share the project's launch/task configs, ignore personal state
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/settings.json
+!.vscode/tasks.json
+
+# Local AI-assistant notes and settings
+.ai/
+.claude/
+CLAUDE.md
+GEMINI.md
+
+# OS and editor leftovers
+.DS_Store
+*.bak

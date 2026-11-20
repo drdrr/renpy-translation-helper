@@ -1,0 +1,31 @@
+# Only dist/extension.js, package.json, the READMEs, CHANGELOG, LICENSE and
+# images/icon.png should end up in the VSIX. esbuild bundles everything else.
+
+# Sources, tests and build tooling
+src/**
+out/**
+node_modules/**
+**/*.ts
+**/*.map
+esbuild.js
+**/tsconfig.json
+**/eslint.config.mjs
+**/.vscode-test.*
+.vscode-test/**
+
+# Repository and editor config
+.vscode/**
+.github/**
+.gitignore
+.gitattributes
+
+# Local AI-assistant notes and settings
+.ai/**
+.claude/**
+CLAUDE.md
+GEMINI.md
+
+# Leftovers
+**/*.bak
+**/*.vsix
+**/.DS_Store
